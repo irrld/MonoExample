@@ -9,8 +9,6 @@ int main() {
   MonoDomain *domain = mono_domain_get();
   mono_domain_set(domain, false);
 
-  const char *assemblyName = "HelloWorldAssembly";
-  const char *entryPointName = "HelloWorldNamespace.HelloWorldClass:PrintHelloWorld";
 
   //mcs -target:library -out:assembly.dll HelloWorldClass.cs
   MonoAssembly *assembly = mono_domain_assembly_open(domain, "assembly.dll");
@@ -19,6 +17,7 @@ int main() {
     return 1;
   }
 
+  const char *entryPointName = "HelloWorldNamespace.HelloWorldClass:GetHelloWorld";
   MonoImage *image = mono_assembly_get_image(assembly);
   MonoMethodDesc *desc = mono_method_desc_new(entryPointName, false);
   MonoMethod *method = mono_method_desc_search_in_image(desc, image);

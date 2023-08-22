@@ -4,7 +4,7 @@ namespace HelloWorldNamespace
 {
     public class HelloWorldClass
     {
-        public static string PrintHelloWorld()
+        public static string GetHelloWorld()
         {
             return "Hello World from C#!";
         }
