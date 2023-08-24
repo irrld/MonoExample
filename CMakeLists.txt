@@ -26,6 +26,7 @@ endif()
 include_directories(${MONO_INCLUDE_DIRS})
 link_directories(${MONO_LIBRARY_DIRS})
 
+include_directories(include)
 add_executable(MonoTest src/main.cc)
 
 target_link_libraries(MonoTest ${MONO_LIBRARIES})

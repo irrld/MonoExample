@@ -2,7 +2,7 @@
 #include <mono/metadata/assembly.h>
 #include <mono/metadata/debug-helpers.h>
 #include <iostream>
-
+#include "mono_util.h"
 
 MonoString* GetName() {
   return mono_string_new(mono_domain_get(), "C++");
@@ -35,12 +35,10 @@ int main() {
   // Namespace.Class::Method(params)
   mono_add_internal_call("Hello.Main::GetName", reinterpret_cast<void*>(GetName));
 
-  MonoObject* result = mono_runtime_invoke(method, nullptr, nullptr, nullptr);
+  MonoObjectWrapper result = mono_runtime_invoke(method, nullptr, nullptr, nullptr);
   if (result) {
-    MonoString* resultString = mono_object_to_string(result, nullptr);
-    const char* str = mono_string_to_utf8(resultString);
-    std::cout << str << std::endl;
-    mono_free((void*) str);
+    ScopedMonoStringWrapper string = result.AsWrappedString();
+    std::cout << string << std::endl;
   }
 
   mono_jit_cleanup(domain);
