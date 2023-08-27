@@ -1,6 +1,12 @@
 #pragma once
 #include <mono/jit/jit.h>
 #include <string>
+#include <span>
+
+#ifdef COMPILE_DLL_RUNTIME
+bool CompileToDLL(const std::string& output_file,
+                  const std::vector<std::string>& source_files);
+#endif
 
 class MonoStringWrapper {
  public:
